@@ -46,6 +46,16 @@ class App extends Component {
     fetch(`https://www.fflogs.com:443/v1/rankings/character/${this.state.character}/${this.state.server}/${this.state.region}?api_key=${key}`)
     .then(response => response.json())
     .then((responseJson)=> {
+      this.setState({
+        eden: null,
+        edenTotal: null,
+        voidwalker: null,
+        voidwalkerTotal: null,
+        leviathan: null,
+        leviathanTotal: null,
+        titan: null,
+        titanTotal: null
+      })
       for (var f = 0; f < responseJson.length; f++) {
         if(responseJson[f].encounterName === "Eden Prime") {
           if(!this.state.eden) {
@@ -108,11 +118,9 @@ class App extends Component {
           }
         }
       }
-            console.log(responseJson)
       this.setState({
         loading: false,
       })
-      console.log(this.state)
     })
     .catch(error=>console.log(error)) //to catch the errors if any
   }
@@ -158,40 +166,40 @@ class App extends Component {
             style={styles.data}>
             <Text style={styles.name}>{this.state.character}</Text>
           </View>
-          <Text style={styles.boss}>Eden Prime</Text>
           <View 
             style={styles.ranking}>
             <Text style={styles.innerRank}>{this.state.eden}</Text>
             <View
               style={styles.center}>
               <Text style={styles.total}>/{this.state.edenTotal}</Text>
+          <Text style={styles.boss}>Eden Prime</Text>
             </View>
           </View>
-          <Text style={styles.boss}>Voidwalker</Text>
           <View 
             style={styles.ranking}>
             <Text style={styles.innerRank}>{this.state.voidwalker}</Text>
             <View
               style={styles.center}>
                 <Text style={styles.total}>/{this.state.voidwalkerTotal}</Text>
+          <Text style={styles.boss}>Voidwalker</Text>
             </View>
           </View>
-          <Text style={styles.boss}>Leviathan</Text>
           <View 
             style={styles.ranking}>
             <Text style={styles.innerRank}>{this.state.leviathan}</Text>
             <View
               style={styles.center}>
               <Text style={styles.total}>/{this.state.leviathanTotal}</Text>
+          <Text style={styles.boss}>Leviathan</Text>
             </View>
           </View>
-          <Text style={styles.boss}>Titan</Text>
           <View 
             style={styles.ranking}>
               <Text style={styles.innerRank}>{this.state.titan}</Text>
               <View
               style={styles.center}>
                 <Text style={styles.total}>/{this.state.titanTotal}</Text>
+          <Text style={styles.boss}>Titan</Text>
               </View>
           </View>
           <View 
@@ -243,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor:'darkgrey',
-    borderWidth: 2,
+    borderWidth: 4,
     borderRadius: 10
   },
   innerRank: {
@@ -256,10 +264,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   boss: {
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    color: 'black'
+    color: 'whitesmoke',
   },
   center: {
   }
